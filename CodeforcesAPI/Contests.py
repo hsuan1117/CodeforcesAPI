@@ -29,6 +29,10 @@ class CodeforcesContest:
     parent = None
     contest_id = None
     group_id = None
+    contest = {}
+
+    def get(self):
+        return self.contest
 
     def info(self, data=None):
         """
@@ -149,6 +153,9 @@ class CodeforcesContest:
 
     def list(self, data=None):
         result = call_api(parent=self.parent, endpoint='contest.list', data=data)
+        final_result = []
+        for contest in result:
+            final_result.append(CodeforcesContest(self.parent, contest=contest))
         return result
 
     def status(self, data=None):
@@ -184,12 +191,16 @@ class CodeforcesContest:
         result = call_api(parent=self.parent, endpoint='contest.standings', data=final_data)
         return result
 
-    def __init__(self, parent, contest_id=None, group_id=None):
+    def __init__(self, parent, contest_id=None, group_id=None, contest=None):
         """
+        :param contest: original contest dict
         :param parent: instanceof **Codeforces**
         """
         self.parent = parent
         self.contest_id = contest_id or os.environ.get('CONTEST_ID')
+        if contest is not None:  # if have contest, use its id
+            self.contest = contest
+            self.contest_id = contest['id']
         self.group_id = group_id or os.environ.get('GROUP_ID')
 
     # Dummy Functions

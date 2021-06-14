@@ -11,6 +11,10 @@ from CodeforcesAPI.APIRequest import call_api
 class CodeforcesUser:
     parent = None
     user_id = None
+    user = {}
+
+    def get(self):
+        return self.user
 
     def info(self, data=None):
         """
@@ -71,10 +75,13 @@ class CodeforcesUser:
         from CodeforcesAPI.Blogs import CodeforcesBlogEntry
         return [CodeforcesBlogEntry(self.parent, blog_entry_id=entry) for entry in entries]
 
-    def __init__(self, parent, user_id=''):
+    def __init__(self, parent, user_id='', user=None):
         """
         :param user_id: user id
         :param parent: instanceof **Codeforces**
         """
         self.user_id = user_id
+        if user is not None:  # if have user, use its id
+            self.user = user
+            self.user_id = user['id']
         self.parent = parent

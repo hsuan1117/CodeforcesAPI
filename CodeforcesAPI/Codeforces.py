@@ -12,7 +12,7 @@ load_dotenv()
 class Codeforces:
     # Status Properties
     isLoggedIn = False
-    parse = False
+    # parse = False
 
     # Data Properties
     session = None
@@ -69,7 +69,7 @@ class Codeforces:
             group_id=None,
             cache=True,
             session=None,
-            parse=True
+            # parse=True
     ):
         """
 
@@ -79,7 +79,7 @@ class Codeforces:
         :param secret: Codeforces API Secret defaults to os.environ.get('SECRET')
         :param cache: whether using cache defaults to True
         :param session: defaults to Session()
-        :param parse: defaults to True
+        :param @deprecated parse: defaults to True
         """
         self.handle = handle or os.environ.get('HANDLE')
         self.password = password or os.environ.get('PASSWORD')
@@ -87,7 +87,7 @@ class Codeforces:
         self.secret = secret or os.environ.get('SECRET')
         self.session = session or Session()
         self.cache = cache
-        self.parse = parse
+        # self.parse = parse
 
     def dump(self):
         print(self.handle)
