@@ -1,4 +1,5 @@
 import json
+import os
 import pathlib
 from time import time
 from urllib.parse import urlencode
@@ -26,6 +27,8 @@ def process_submission_details(submission):
 
 class CodeforcesContest:
     parent = None
+    contest_id = None
+    group_id = None
 
     def info(self, data=None):
         """
@@ -41,15 +44,16 @@ class CodeforcesContest:
         Get users in the contest
 
         :param data: other data to send
-        :return: <list> user list
+        :return: <list <CodeforcesUser>> user list
         """
         result = self.status(data=(data or None))
         user_list = set()
         for submission in result:
             for user in submission['author']['members']:
                 user_list.add(user['handle'])
-        user_list = list(user_list)
-        return user_list
+        user_list = sorted(user_list)
+        from CodeforcesAPI.Users import CodeforcesUser
+        return [CodeforcesUser(self.parent, user_id=user) for user in user_list]
 
     def problems(self, data=None):
         """
@@ -127,7 +131,7 @@ class CodeforcesContest:
             'csrf_token': csrf_token,
             'submissionId': submission_id,
         }
-        res = self.parent.session.post(f"https://codeforces.com/group/{self.parent.groupId}/data/judgeProtocol",
+        res = self.parent.session.post(f"https://codeforces.com/group/{self.group_id}/data/judgeProtocol",
                                        data=data)
         if "html" in res.text:
             from CodeforcesAPI import CodeforcesCredentialException
@@ -144,7 +148,7 @@ class CodeforcesContest:
         :return: <dict> response
         """
         default_data = {
-            'contestId': self.parent.contestId
+            'contestId': self.contest_id
         }
         if data is None:
             data = {}
@@ -161,7 +165,7 @@ class CodeforcesContest:
         :return: <list> response
         """
         default_data = {
-            'contestId': self.parent.contestId
+            'contestId': self.contest_id
         }
         if data is None:
             data = {}
@@ -169,11 +173,13 @@ class CodeforcesContest:
         result = call_api(parent=self.parent, endpoint='contest.standings', data=final_data)
         return result
 
-    def __init__(self, parent):
+    def __init__(self, parent, contest_id=None, group_id=None):
         """
         :param parent: instanceof **Codeforces**
         """
         self.parent = parent
+        self.contest_id = contest_id or os.environ.get('CONTEST_ID')
+        self.group_id = group_id or os.environ.get('GROUP_ID')
 
     # Dummy Functions
     tasks = problems

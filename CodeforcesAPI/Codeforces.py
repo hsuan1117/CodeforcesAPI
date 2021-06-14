@@ -19,8 +19,6 @@ class Codeforces:
     password = None
     apiKey = ''
     secret = ''
-    contestId = ''
-    groupId = ''
     cache = True
 
     # 所有參數在init設定，不然就在env設定
@@ -75,10 +73,8 @@ class Codeforces:
 
         :param handle: Codeforces Handle defaults to os.environ.get('HANDLE')
         :param password: Codeforces Password defaults to os.environ.get('PASSWORD')
-        :param api_key: Codeforces API Key defaults to os.environ.get('PASSWORD')
-        :param secret: Codeforces API Secret defaults to os.environ.get('PASSWORD')
-        :param contest_id: Codeforces Contest Id defaults to os.environ.get('PASSWORD')
-        :param group_id: Codeforces Contest Group Id defaults to os.environ.get('PASSWORD')
+        :param api_key: Codeforces API Key defaults to os.environ.get('API_KEY')
+        :param secret: Codeforces API Secret defaults to os.environ.get('SECRET')
         :param cache: whether using cache defaults to True
         :param session: defaults to Session()
         """
@@ -87,8 +83,6 @@ class Codeforces:
         self.apiKey = api_key or os.environ.get('API_KEY')
         self.secret = secret or os.environ.get('SECRET')
         self.session = session or Session()
-        self.contestId = contest_id or os.environ.get('CONTEST_ID')
-        self.groupId = group_id or os.environ.get('GROUP_ID')
         self.cache = cache
 
     def dump(self):
