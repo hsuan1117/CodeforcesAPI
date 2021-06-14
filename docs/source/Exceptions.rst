@@ -1,9 +1,9 @@
-Codeforces Contest
-==================
+Codeforces Exceptions
+=====================
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-.. autoclass:: CodeforcesAPI.Contests.CodeforcesContest
+.. automodule:: CodeforcesAPI.Exceptions
     :members:
     :special-members: __init__

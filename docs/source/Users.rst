@@ -1,9 +1,9 @@
-Codeforces Contest
+Codeforces User
 ==================
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-.. autoclass:: CodeforcesAPI.Contests.CodeforcesContest
+.. autoclass:: CodeforcesAPI.Users.CodeforcesUser
     :members:
     :special-members: __init__
