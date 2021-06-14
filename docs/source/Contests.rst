@@ -1,4 +1,4 @@
-Contests
+CodeforcesContest
 ==================
 .. toctree::
    :maxdepth: 2

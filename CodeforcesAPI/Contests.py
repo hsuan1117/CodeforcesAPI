@@ -140,6 +140,17 @@ class CodeforcesContest:
         cache.write(res.text)
         return res.text
 
+    def hacks(self):
+        final_data = {
+            'contestId': self.contest_id
+        }
+        result = call_api(parent=self.parent, endpoint='contest.hacks', data=final_data)
+        return result
+
+    def list(self, data=None):
+        result = call_api(parent=self.parent, endpoint='contest.list', data=data)
+        return result
+
     def status(self, data=None):
         """
         Get raw api contest.status response
