@@ -84,4 +84,6 @@ class CodeforcesUser:
         if user is not None:  # if have user, use its id
             self.user = user
             self.user_id = user['id']
+        else:
+            self.user['id'] = self.user_id
         self.parent = parent

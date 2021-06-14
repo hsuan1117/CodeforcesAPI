@@ -47,4 +47,6 @@ class CodeforcesBlogEntry:
         if blog is not None:
             self.blog = blog
             self.blog_entry_id = blog['id']
+        else:
+            self.blog['id'] = self.blog_entry_id
         self.parent = parent

@@ -201,6 +201,8 @@ class CodeforcesContest:
         if contest is not None:  # if have contest, use its id
             self.contest = contest
             self.contest_id = contest['id']
+        else:
+            self.contest['id'] = self.contest_id
         self.group_id = group_id or os.environ.get('GROUP_ID')
 
     # Dummy Functions
