@@ -28,9 +28,21 @@ class CodeforcesContest:
     parent = None
 
     def info(self, data=None):
+        """
+        Get contest information
+
+        :param data: other data to send
+        :return: <dict> Contest Information
+        """
         return self.standings(data=(data or None))['contest']
 
     def users(self, data=None):
+        """
+        Get users in the contest
+
+        :param data: other data to send
+        :return: <list> user list
+        """
         result = self.status(data=(data or None))
         user_list = set()
         for submission in result:
@@ -40,19 +52,27 @@ class CodeforcesContest:
         return user_list
 
     def problems(self, data=None):
+        """
+        Get problems in the contest
+
+        :param data: other data to send
+        :return: <list> problems
+        """
         return self.standings(data=(data or None))['problems']
 
     def submissions(self, data=None, ignore_manager=True, ignore_out_of_time=True, ignore_zero_point=True,
                     with_subtasks=False, with_simple_handle=False, with_simple_problem=False):
         """
-        :param with_simple_problem:
-        :param with_simple_handle:
-        :param with_subtasks:
-        :param ignore_zero_point:
-        :param ignore_out_of_time:
-        :param ignore_manager:
-        :param data:
-        :return:
+        Get submissions in the contest
+
+        :param data: other data to send
+        :param with_simple_problem: flat problem details
+        :param with_simple_handle: flat author dict
+        :param with_subtasks: return data with subtask details
+        :param ignore_zero_point: ignore zero-point submission
+        :param ignore_out_of_time: ignore submission which was out of time
+        :param ignore_manager: ignore manager submitted submission
+        :return: <list> submissions
         """
         result = self.status(data=(data or None))
         submissions_list = []
@@ -79,10 +99,12 @@ class CodeforcesContest:
 
     def submission_details(self, submission_id, cache_time=None, force_login=False):
         """
-        :param force_login:
-        :param cache_time:
-        :param submission_id: required
-        :return:
+        Get submission details (fetch subtasks status)
+
+        :param submission_id: required parameter
+        :param force_login: force re-login
+        :param cache_time: TTL of cache
+        :return: <str> Submission details
         """
         if self.parent.handle is None or self.parent.password is None:
             from CodeforcesAPI import CodeforcesCredentialException
@@ -115,6 +137,12 @@ class CodeforcesContest:
         return res.text
 
     def status(self, data=None):
+        """
+        Get raw api contest.status response
+
+        :param data: other data to send
+        :return: <dict> response
+        """
         default_data = {
             'contestId': self.parent.contestId
         }
@@ -126,6 +154,12 @@ class CodeforcesContest:
         return call_api(parent=self.parent, data=final_data)
 
     def standings(self, data=None):
+        """
+        Get raw api contest.standing response
+
+        :param data: other data to send
+        :return: <list> response
+        """
         default_data = {
             'contestId': self.parent.contestId
         }
@@ -136,6 +170,9 @@ class CodeforcesContest:
         return result
 
     def __init__(self, parent):
+        """
+        :param parent: instanceof **Codeforces**
+        """
         self.parent = parent
 
     # Dummy Functions

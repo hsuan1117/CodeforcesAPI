@@ -7,11 +7,11 @@ from hashlib import sha512, md5
 
 def call_api(parent, endpoint='contest.status', data=None, cache_file=None, cache_time=None):
     """
-    :param cache_time: 快取時間
-    :param cache_file: 指定cache file 例如： status.json
-    :param data: 其他要傳送的data
+    :param cache_time: TTL of cache (in seconds)
+    :param cache_file: set cache file e.g. status.json
+    :param data: other data to send
     :param endpoint: API endpoint
-    :param parent: 必須傳入self
+    :param parent: instance of **Codeforces**
     """
     f = None
     if parent.cache:  # 如果要cache

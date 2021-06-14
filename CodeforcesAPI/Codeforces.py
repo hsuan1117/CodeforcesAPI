@@ -62,22 +62,33 @@ class Codeforces:
 
     def __init__(
             self,
-            handle=os.environ.get('HANDLE'),
-            password=os.environ.get('PASSWORD'),
-            api_key=os.environ.get('API_KEY'),
-            secret=os.environ.get('SECRET'),
-            contest_id=os.environ.get('CONTEST_ID'),
-            group_id=os.getenv('GROUP_ID'),
+            handle=None,
+            password=None,
+            api_key=None,
+            secret=None,
+            contest_id=None,
+            group_id=None,
             cache=True,
-            session=Session()
+            session=None
     ):
-        self.handle = handle
-        self.password = password
-        self.apiKey = api_key
-        self.secret = secret
-        self.session = session
-        self.contestId = contest_id
-        self.groupId = group_id
+        """
+
+        :param handle: Codeforces Handle defaults to os.environ.get('HANDLE')
+        :param password: Codeforces Password defaults to os.environ.get('PASSWORD')
+        :param api_key: Codeforces API Key defaults to os.environ.get('PASSWORD')
+        :param secret: Codeforces API Secret defaults to os.environ.get('PASSWORD')
+        :param contest_id: Codeforces Contest Id defaults to os.environ.get('PASSWORD')
+        :param group_id: Codeforces Contest Group Id defaults to os.environ.get('PASSWORD')
+        :param cache: whether using cache defaults to True
+        :param session: defaults to Session()
+        """
+        self.handle = handle or os.environ.get('HANDLE')
+        self.password = password or os.environ.get('PASSWORD')
+        self.apiKey = api_key or os.environ.get('API_KEY')
+        self.secret = secret or os.environ.get('SECRET')
+        self.session = session or Session()
+        self.contestId = contest_id or os.environ.get('CONTEST_ID')
+        self.groupId = group_id or os.environ.get('GROUP_ID')
         self.cache = cache
 
     def dump(self):
