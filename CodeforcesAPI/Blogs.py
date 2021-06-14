@@ -11,6 +11,10 @@ from CodeforcesAPI.APIRequest import call_api
 class CodeforcesBlogEntry:
     parent = None
     blog_entry_id = None
+    blog = {}
+
+    def get(self):
+        return self.blog
 
     def view(self):
         """
@@ -34,10 +38,13 @@ class CodeforcesBlogEntry:
         }, cache_time=24 * 60 * 60)
         return comments
 
-    def __init__(self, parent, blog_entry_id=''):
+    def __init__(self, parent, blog_entry_id='', blog=None):
         """
         :param blog_entry_id: blog entry id
         :param parent: instanceof **Codeforces**
         """
         self.blog_entry_id = blog_entry_id
+        if blog is not None:
+            self.blog = blog
+            self.blog_entry_id = blog['id']
         self.parent = parent
